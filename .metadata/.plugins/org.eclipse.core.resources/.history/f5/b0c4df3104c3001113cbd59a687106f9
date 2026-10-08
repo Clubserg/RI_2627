@@ -31,8 +31,6 @@ public class AddMechanic implements Command<MechanicDto>{
         ArgumentChecks.isNotBlank(dto.name, "Invalid name to create mechanic");
         ArgumentChecks.isNotBlank(dto.surname, "Invalid surname to create mechanic");
         
-
-        
         m.nif = dto.nif;
         m.name = dto.name;
         m.surname = dto.surname;

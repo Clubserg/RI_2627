@@ -18,12 +18,12 @@ public class MechanicGatewayImpl implements MechanicGateway {
 	public void add(MechanicRecord t) throws PersistenceException {
 		try (Connection c = Jdbc.createThreadConnection();) {
             try (PreparedStatement pst = c.prepareStatement(Queries.getSQLSentence("TMECHANICS_ADD"))) {
-
-                pst.setString(1, t.id);
-                pst.setString(2, t.nif);
-                pst.setString(3, t.name);
-                pst.setString(4, t.surname);
-                pst.setLong(5, t.version);
+            	MechanicRecord m = new MechanicRecord();
+                pst.setString(1, m.id);
+                pst.setString(2, m.nif);
+                pst.setString(3, m.name);
+                pst.setString(4, m.surname);
+                pst.setLong(5, m.version);
                 pst.setTimestamp(6, new Timestamp(System.currentTimeMillis()));
                 pst.setTimestamp(7, new Timestamp(System.currentTimeMillis()));
                 pst.setString(8, "ENABLED");               
