@@ -6,8 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
+import uo.ri.cws.application.persistence.util.jdbc.Jdbc;
 import uo.ri.cws.application.service.mechanic.MechanicCrudService.MechanicDto;
-import uo.ri.util.jdbc.Jdbc;
+import uo.ri.util.assertion.ArgumentChecks;
 
 public class FindMechanicById {
     
@@ -17,7 +18,7 @@ public class FindMechanicById {
         "select * from TMechanics where id = ?";
 
     public FindMechanicById(String id) {
-        // validate
+        ArgumentChecks.isNotNull(id, "Invalid null id to find mechanic");
         this.mechanicId = id;
     }
     

@@ -1,0 +1,7 @@
+package uo.ri.cws.application;
+
+import uo.ri.cws.application.persistence.PersistenceFactory;
+
+public class PersistenceFactoryImpl implements PersistenceFactory{
+
+}

@@ -6,11 +6,15 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.UUID;
 
+import uo.ri.conf.Factories;
+import uo.ri.cws.application.persistence.mechanic.MechanicGateway;
+import uo.ri.cws.application.persistence.util.command.Command;
+import uo.ri.cws.application.persistence.util.jdbc.Jdbc;
 import uo.ri.cws.application.service.mechanic.MechanicCrudService.MechanicDto;
+import uo.ri.cws.application.service.mechanic.crud.MechanicDtoAssembler;
 import uo.ri.util.assertion.ArgumentChecks;
-import uo.ri.util.jdbc.Jdbc;
 
-public class AddMechanic {
+public class AddMechanic implements Command<MechanicDto>{
 
     private static final String TMECHANICS_ADD = "insert into TMechanics"
         + "(id, nif, name, surname, version, "
@@ -18,6 +22,7 @@ public class AddMechanic {
         + "values (?, ?, ?, ?, ?, ?, ?, ?)";
 
 
+    private MechanicGateway mg = Factories.persistence.forMechanic();
     private MechanicDto m = new MechanicDto();
     
     public AddMechanic(MechanicDto dto) {
@@ -36,24 +41,13 @@ public class AddMechanic {
     
     
     public MechanicDto execute() {
-        // Process
-        try (Connection c = Jdbc.createThreadConnection();) {
-            try (PreparedStatement pst = c.prepareStatement(TMECHANICS_ADD)) {
-                pst.setString(1, m.id);
-                pst.setString(2, m.nif);
-                pst.setString(3, m.name);
-                pst.setString(4, m.surname);
-                pst.setLong(5, m.version);
-                pst.setTimestamp(6, new Timestamp(System.currentTimeMillis()));
-                pst.setTimestamp(7, new Timestamp(System.currentTimeMillis()));
-                pst.setString(8, "ENABLED");               
+    	
 
-                pst.executeUpdate();
-
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        var record = MechanicDtoAssembler.toRecord(m);
+        mg.add(record);
+        m.id = record.id;
+        m.version = record.version;
+        
         return m;
     }
 }

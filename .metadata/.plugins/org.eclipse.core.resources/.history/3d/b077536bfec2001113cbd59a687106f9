@@ -1,0 +1,11 @@
+package uo.ri.cws.application.persistence.mechanic;
+
+import uo.ri.cws.application.persistence.Gateway;
+
+public interface MechanicGateway extends Gateway{
+	
+	public class MechanicRecord {
+		
+	}
+
+}

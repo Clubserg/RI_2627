@@ -1,0 +1,43 @@
+package uo.ri.cws.application.service.mechanic.crud.commands;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import uo.ri.cws.application.persistence.util.jdbc.Jdbc;
+import uo.ri.cws.application.service.mechanic.MechanicCrudService.MechanicDto;
+
+public class FindAllMechanics {
+
+    private static final String TMECHANICS_FINDALL =
+        "select * from TMechanics";
+
+    public List<MechanicDto> execute() {
+        List<MechanicDto> result = new ArrayList<MechanicDto>();
+
+        try (Connection c = Jdbc.createThreadConnection()) {
+            try (PreparedStatement pst = c
+                    .prepareStatement(TMECHANICS_FINDALL)) {
+                try (ResultSet rs = pst.executeQuery()) {
+                    while (rs.next()) {
+                        MechanicDto m = new MechanicDto();
+                        m.id = rs.getString("id");
+                        m.nif = rs.getString("nif");
+                        m.name = rs.getString("name");
+                        m.surname = rs.getString("surname");
+                        m.version = rs.getLong("version");
+                        result.add(m);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return result;
+    }
+
+}

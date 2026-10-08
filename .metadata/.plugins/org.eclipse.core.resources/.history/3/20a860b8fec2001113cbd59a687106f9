@@ -1,0 +1,7 @@
+package uo.ri.cws.application.persistence.mechanic.impl;
+
+import uo.ri.cws.application.persistence.mechanic.MechanicGateway;
+
+public class MechanicGatewayImpl implements MechanicGateway {
+
+}

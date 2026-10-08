@@ -1,0 +1,18 @@
+package uo.ri.cws.application.service.mechanic.crud;
+
+import uo.ri.cws.application.persistence.mechanic.MechanicGateway.MechanicRecord;
+import uo.ri.cws.application.service.mechanic.MechanicCrudService.MechanicDto;
+
+public class MechanicDtoAssembler {
+
+
+	public static MechanicRecord toRecord(MechanicDto dto) {
+			var mr = new MechanicRecord();
+			mr.nif = dto.nif;
+			mr.name = dto.name;
+			mr.surname = dto.surname;
+			return mr;
+	}
+	
+
+}

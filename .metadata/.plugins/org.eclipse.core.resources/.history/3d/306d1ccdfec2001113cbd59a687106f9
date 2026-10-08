@@ -1,0 +1,20 @@
+package uo.ri.cws.application.persistence.mechanic;
+
+import java.util.Optional;
+
+import uo.ri.cws.application.persistence.Gateway;
+
+public interface MechanicGateway extends Gateway<MechanicGateway.MechanicRecord>{
+	
+	public class MechanicRecord extends BaseRecord {
+		public String name;
+		public String surname;
+		public String nif;
+		
+	}
+	
+	public Optional<MechanicRecord> findByNif() {
+		
+	}
+
+}
